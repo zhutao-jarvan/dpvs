@@ -199,10 +199,12 @@ int main(int argc, char *argv[])
         rte_exit(EXIT_FAILURE, "Fail init configuration file: %s\n",
                  dpvs_strerror(err));
 
+	// virtual devices: bonding devices
     if ((err = netif_virtual_devices_add()) != EDPVS_OK)
         rte_exit(EXIT_FAILURE, "Fail add virtual devices:%s\n",
                  dpvs_strerror(err));
 
+	// per lcore timer init, TODO: timer mechanism
     if ((err = dpvs_timer_init()) != EDPVS_OK)
         rte_exit(EXIT_FAILURE, "Fail init timer on %s\n", dpvs_strerror(err));
 
@@ -210,11 +212,13 @@ int main(int argc, char *argv[])
         rte_exit(EXIT_FAILURE, "Fail to init traffic control: %s\n",
                  dpvs_strerror(err));
 
+	// dpdk low level device and job init, TODO: job mechanism
     if ((err = netif_init(NULL)) != EDPVS_OK)
         rte_exit(EXIT_FAILURE, "Fail to init netif: %s\n", dpvs_strerror(err));
     /* Default lcore conf and port conf are used and may be changed here
      * with "netif_port_conf_update" and "netif_lcore_conf_set" */
 
+	// TODO: multi lcore interactive mechanism
     if ((err = ctrl_init()) != EDPVS_OK)
         rte_exit(EXIT_FAILURE, "Fail to init ctrl plane: %s\n",
                  dpvs_strerror(err));
@@ -229,6 +233,8 @@ int main(int argc, char *argv[])
     if ((err = inet_init()) != EDPVS_OK)
         rte_exit(EXIT_FAILURE, "Fail to init inet: %s\n", dpvs_strerror(err));
 
+	// TODO: The special use of FDIR causes only specific NIC can be applied.
+	//		 Use rx flow filter to replace FDIR.
     if ((err = sa_pool_init()) != EDPVS_OK)
         rte_exit(EXIT_FAILURE, "Fail to init sa_pool: %s\n", dpvs_strerror(err));
 

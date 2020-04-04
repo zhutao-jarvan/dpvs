@@ -84,8 +84,12 @@ int inet_init(void)
 
     if ((err = ipset_init()) != 0)
         return err;
+
+	// TODO: maybe ARP could be move to core0
     if ((err = neigh_init()) != 0)
         return err;
+
+	// per-lcore route talbe
     if ((err = route_init()) != 0)
         return err;
     if ((err = route6_init()) != 0)
@@ -100,6 +104,8 @@ int inet_init(void)
         return err;
     if ((err = icmpv6_init()) != 0)
         return err;
+
+	//TODO: laddr add entry
     if ((err = inet_addr_init()) != 0)
         return err;
 

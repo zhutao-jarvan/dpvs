@@ -42,6 +42,7 @@ struct dp_vs_proto {
                       struct dp_vs_conn **conn,
                       int *verdict);
 
+	// TODO: maybe add lookup interface with known conn type to accelerate.
     /* lookup conn by <proto, saddr, sport, daddr, dport>
      * return conn and direction or NULL if miss */
     struct dp_vs_conn *

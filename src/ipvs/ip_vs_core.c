@@ -1174,6 +1174,7 @@ int dp_vs_init(void)
         goto err_synproxy;
     }
 
+	// TODO: maybe we cound add a type to accelerate
     err = dp_vs_sched_init();
     if (err != EDPVS_OK) {
         RTE_LOG(ERR, IPVS, "fail to init sched: %s\n", dpvs_strerror(err));
