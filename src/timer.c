@@ -429,6 +429,7 @@ int dpvs_timer_init(void)
     int err;
 
     /* per-lcore timer */
+	// all slave core will run func 'timer_lcore_init' once.
     rte_eal_mp_remote_launch(timer_lcore_init, NULL, SKIP_MASTER);
     RTE_LCORE_FOREACH_SLAVE(cid) {
         err = rte_eal_wait_lcore(cid);
